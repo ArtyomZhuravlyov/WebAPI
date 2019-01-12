@@ -26,22 +26,29 @@ namespace test.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]Request req)
+        public string Post([FromBody]Request req)
         {
-            if(req == null) return;
-            if (req.AppToken == null || req.UserKey == null || req.Message == null) return;
+            if (req == null || req.AppToken == "" || req.UserKey == "" || req.Message == "") return "Вы заполнены не все поля";
             
                 var parameters = new NameValueCollection {
              { "token", req.AppToken },
              { "user", req.UserKey },
              { "message", req.Message }
              };
-
-                using (var client = new WebClient())
-                {
+            try
+            { 
+                 using (var client = new WebClient())
+                 {
                     client.UploadValues("https://api.pushover.net/1/messages.json", parameters);
-                }
-            
+                 }
+                return "успешно";
+            }
+            catch 
+            {
+                return "неправильно введены данные";
+            }
+
+
         }
 
         // PUT api/values/5
