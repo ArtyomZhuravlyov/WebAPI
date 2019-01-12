@@ -28,7 +28,7 @@ namespace test.Controllers
         [HttpPost]
         public string Post([FromBody]Request req)
         {
-            if (req == null || req.AppToken == "" || req.UserKey == "" || req.Message == "") return "Вы заполнены не все поля";
+            if (req == null || req.AppToken == "" || req.UserKey == "" || req.Message == "") return "Вы заполнили не все поля";
             
                 var parameters = new NameValueCollection {
              { "token", req.AppToken },
